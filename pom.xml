@@ -2,21 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	
-    <groupId>com.ruoyi</groupId>
-    <artifactId>ruoyi</artifactId>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.fmu</groupId>
+    <artifactId>fmu</artifactId>
     <version>3.8.7</version>
 
-    <name>ruoyi</name>
-    <url>http://www.ruoyi.vip</url>
-    <description>若依管理系统</description>
-    
+    <name>fmu</name>
+   <!-- <url>http://www.ruoyi.vip</url>-->
+    <description>液压仿真模型库系统</description>
+
     <properties>
-        <ruoyi.version>3.8.7</ruoyi.version>
+        <fmu.version>3.8.7</fmu.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
         <druid.version>1.2.20</druid.version>
         <bitwalker.version>1.21</bitwalker.version>
@@ -34,6 +34,30 @@
     <!-- 依赖声明 -->
     <dependencyManagement>
         <dependencies>
+            <!--fmi以及jaxb-->
+            <dependency>
+                <groupId>info.laht.fmi4j</groupId>
+                <artifactId>fmi-import</artifactId>
+                <version>0.37.0</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-reload4j</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>2.3.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jaxb</groupId>
+                <artifactId>jaxb-runtime</artifactId>
+                <version>2.3.3</version>
+            </dependency>
+
 
             <!-- SpringBoot的依赖配置-->
             <dependency>
@@ -127,51 +151,51 @@
                 <version>${kaptcha.version}</version>
             </dependency>
 
-            <!-- 定时任务-->
-            <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-quartz</artifactId>
-                <version>${ruoyi.version}</version>
-            </dependency>
+            <!--           &lt;!&ndash; 定时任务&ndash;&gt;
+                       <dependency>
+                           <groupId>com.fmu</groupId>
+                           <artifactId>fmu-quartz</artifactId>
+                           <version>${fmu.version}</version>
+                       </dependency>-->
 
             <!-- 代码生成-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-generator</artifactId>
-                <version>${ruoyi.version}</version>
+                <groupId>com.fmu</groupId>
+                <artifactId>fmu-generator</artifactId>
+                <version>${fmu.version}</version>
             </dependency>
 
             <!-- 核心模块-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-framework</artifactId>
-                <version>${ruoyi.version}</version>
+                <groupId>com.fmu</groupId>
+                <artifactId>fmu-framework</artifactId>
+                <version>${fmu.version}</version>
             </dependency>
 
             <!-- 系统模块-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-system</artifactId>
-                <version>${ruoyi.version}</version>
+                <groupId>com.fmu</groupId>
+                <artifactId>fmu-system</artifactId>
+                <version>${fmu.version}</version>
             </dependency>
 
             <!-- 通用工具-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-common</artifactId>
-                <version>${ruoyi.version}</version>
+                <groupId>com.fmu</groupId>
+                <artifactId>fmu-common</artifactId>
+                <version>${fmu.version}</version>
             </dependency>
 
         </dependencies>
     </dependencyManagement>
 
     <modules>
-        <module>ruoyi-admin</module>
-        <module>ruoyi-framework</module>
-        <module>ruoyi-system</module>
-        <module>ruoyi-quartz</module>
-        <module>ruoyi-generator</module>
-        <module>ruoyi-common</module>
+        <module>fmuSystem-admin</module>
+        <module>fmuSystem-framework</module>
+        <module>fmuSystem-system</module>
+        <!--<module>fmu-quartz</module>-->
+        <module>fmuSystem-generator</module>
+        <module>fmuSystem-common</module>
     </modules>
     <packaging>pom</packaging>
 
