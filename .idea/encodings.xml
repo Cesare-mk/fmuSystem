@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/fmu-admin/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmu-admin/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmu-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmu-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmu-framework/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmu-framework/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmu-generator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmu-generator/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmu-quartz/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmu-quartz/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmu-system/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmu-system/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmuSystem-admin/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmuSystem-admin/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmuSystem-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmuSystem-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmuSystem-framework/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmuSystem-framework/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmuSystem-generator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmuSystem-generator/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmuSystem-quartz/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmuSystem-quartz/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmuSystem-system/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fmuSystem-system/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

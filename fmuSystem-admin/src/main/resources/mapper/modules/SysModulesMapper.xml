@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fmu.modules.mapper.SysModulesMapper">
+    
+    <resultMap type="SysModules" id="SysModulesResult">
+        <result property="moduleId"    column="module_id"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="deptName"    column="dept_name"    />
+        <result property="moduleName"    column="module_name"    />
+        <result property="fmuVersion"    column="fmu_version"    />
+        <result property="author"    column="author"    />
+        <result property="versionNumber"    column="version_number"    />
+        <result property="developmentDate"    column="development_date"    />
+        <result property="uploadDate"    column="upload_date"    />
+        <result property="description"    column="description"    />
+        <result property="modulePath"    column="module_path"    />
+        <result property="parameterList"    column="parameter_list"    />
+    </resultMap>
+
+    <sql id="selectSysModulesVo">
+        select module_id, dept_id, dept_name, module_name, fmu_version, author, version_number, development_date, upload_date, description, module_path, parameter_list from sys_modules
+    </sql>
+
+    <select id="selectSysModulesList" parameterType="SysModules" resultMap="SysModulesResult">
+        <include refid="selectSysModulesVo"/>
+        <where>  
+            <if test="deptId != null "> and dept_id = #{deptId}</if>
+            <if test="deptName != null  and deptName != ''"> and dept_name like concat('%', #{deptName}, '%')</if>
+            <if test="moduleName != null  and moduleName != ''"> and module_name like concat('%', #{moduleName}, '%')</if>
+            <if test="fmuVersion != null  and fmuVersion != ''"> and fmu_version = #{fmuVersion}</if>
+            <if test="author != null  and author != ''"> and author = #{author}</if>
+            <if test="versionNumber != null  and versionNumber != ''"> and version_number = #{versionNumber}</if>
+            <if test="developmentDate != null "> and development_date = #{developmentDate}</if>
+            <if test="uploadDate != null "> and upload_date = #{uploadDate}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="modulePath != null  and modulePath != ''"> and module_path = #{modulePath}</if>
+            <if test="parameterList != null  and parameterList != ''"> and parameter_list = #{parameterList}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysModulesByModuleId" parameterType="Long" resultMap="SysModulesResult">
+        <include refid="selectSysModulesVo"/>
+        where module_id = #{moduleId}
+    </select>
+        
+    <insert id="insertSysModules" parameterType="SysModules" useGeneratedKeys="true" keyProperty="moduleId">
+        insert into sys_modules
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="deptId != null">dept_id,</if>
+            <if test="deptName != null">dept_name,</if>
+            <if test="moduleName != null and moduleName != ''">module_name,</if>
+            <if test="fmuVersion != null">fmu_version,</if>
+            <if test="author != null">author,</if>
+            <if test="versionNumber != null">version_number,</if>
+            <if test="developmentDate != null">development_date,</if>
+            <if test="uploadDate != null">upload_date,</if>
+            <if test="description != null">description,</if>
+            <if test="modulePath != null">module_path,</if>
+            <if test="parameterList != null">parameter_list,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="deptId != null">#{deptId},</if>
+            <if test="deptName != null">#{deptName},</if>
+            <if test="moduleName != null and moduleName != ''">#{moduleName},</if>
+            <if test="fmuVersion != null">#{fmuVersion},</if>
+            <if test="author != null">#{author},</if>
+            <if test="versionNumber != null">#{versionNumber},</if>
+            <if test="developmentDate != null">#{developmentDate},</if>
+            <if test="uploadDate != null">#{uploadDate},</if>
+            <if test="description != null">#{description},</if>
+            <if test="modulePath != null">#{modulePath},</if>
+            <if test="parameterList != null">#{parameterList},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysModules" parameterType="SysModules">
+        update sys_modules
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="deptName != null">dept_name = #{deptName},</if>
+            <if test="moduleName != null and moduleName != ''">module_name = #{moduleName},</if>
+            <if test="fmuVersion != null">fmu_version = #{fmuVersion},</if>
+            <if test="author != null">author = #{author},</if>
+            <if test="versionNumber != null">version_number = #{versionNumber},</if>
+            <if test="developmentDate != null">development_date = #{developmentDate},</if>
+            <if test="uploadDate != null">upload_date = #{uploadDate},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="modulePath != null">module_path = #{modulePath},</if>
+            <if test="parameterList != null">parameter_list = #{parameterList},</if>
+        </trim>
+        where module_id = #{moduleId}
+    </update>
+
+    <delete id="deleteSysModulesByModuleId" parameterType="Long">
+        delete from sys_modules where module_id = #{moduleId}
+    </delete>
+
+    <delete id="deleteSysModulesByModuleIds" parameterType="String">
+        delete from sys_modules where module_id in 
+        <foreach item="moduleId" collection="array" open="(" separator="," close=")">
+            #{moduleId}
+        </foreach>
+    </delete>
+</mapper>
