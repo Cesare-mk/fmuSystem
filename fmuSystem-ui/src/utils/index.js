@@ -269,6 +269,24 @@ export function deepClone(source) {
       targetObj[keys] = source[keys]
     }
   })
+  // 处理循环引用的问题
+  if (typeof source === 'object') {
+    const cache = new WeakMap();
+    return (function deepCloneWithCache(value) {
+      if (cache.has(value)) {
+        return cache.get(value);
+      }
+      if (typeof value === 'object' && value !== null) {
+        const result = Array.isArray(value) ? [] : {};
+        cache.set(value, result);
+        Object.keys(value).forEach(key => {
+          result[key] = deepCloneWithCache(value[key]);
+        });
+        return result;
+      }
+      return value;
+    })(source);
+  }
   return targetObj
 }
 

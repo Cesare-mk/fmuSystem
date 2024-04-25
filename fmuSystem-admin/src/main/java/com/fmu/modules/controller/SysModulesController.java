@@ -2,12 +2,18 @@ package com.fmu.modules.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.JSONObject;
+import com.fmu.common.config.RuoYiConfig;
+import com.fmu.common.constant.Constants;
 import com.fmu.common.utils.StringUtils;
 import com.fmu.modules.domain.SysSingleModule;
 import no.ntnu.ihb.fmi4j.importer.fmi1.CoSimulationSlave;
@@ -16,14 +22,7 @@ import no.ntnu.ihb.fmi4j.modeldescription.CoSimulationModelDescription;
 import no.ntnu.ihb.fmi4j.modeldescription.variables.TypedScalarVariable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.fmu.common.annotation.Log;
 import com.fmu.common.core.controller.BaseController;
 import com.fmu.common.core.domain.AjaxResult;
@@ -48,10 +47,18 @@ public class SysModulesController extends BaseController
     /**
      * 上传模型信息返回
      */
-    @GetMapping("read/{path}" )
-    public SysSingleModule readInfo(@PathVariable("path") String path) throws IOException {
+    //@PreAuthorize("@ss.hasPermi('modules:modulesInfo:read')")
+    @PostMapping("/read" )
+    public SysSingleModule readInfo(@RequestBody Map<String,String> requestBody) throws IOException {
+        //String decodedPath = URLDecoder.decode(path, StandardCharsets.UTF_8);
+        String filePath = requestBody.get("filePath");
+        // 本地资源路径
+        String localPath = RuoYiConfig.getProfile();
+        // 数据库资源地址
+        String realPath = localPath + StringUtils.substringAfter(filePath, Constants.RESOURCE_PREFIX);
+        System.out.println(realPath);
         SysSingleModule sysSingleModule = new SysSingleModule();
-        Fmu fmu = Fmu.from(new File(path)); //URLs are also supported
+        Fmu fmu = Fmu.from(new File(realPath)); //URLs are also supported
 
         CoSimulationSlave slave = fmu.asCoSimulationFmu().newInstance();
 
@@ -76,20 +83,15 @@ public class SysModulesController extends BaseController
             variableObject.put("描述", variable.getDescription());
 
             variableList.add(variableObject);
-            //jsonObject.(variable.getName(), variableObject);
-            /*System.out.println("序号："+ variable.getValueReference());
-            System.out.print("变量名 " + variable.getName() + "   ");
-            System.out.print("初始值 ֵ" + variable.getStart() + "   ");
-            System.out.print("因果关系 " + variable.getCausality() + "   ");
-            System.out.print("是否变量 " + variable.getVariability() + "   ");
-            System.out.print("描述 " + variable.getDescription() + "   ");
-            System.out.println("/n");*/
         }
         fmu.close();
-        String jsonString = JSON.toJSONString(variableList);
+        String jsonString = JSON.toJSONString(variableList,JSONWriter.Feature.WriteMapNullValue);
         sysSingleModule.setParameterList(jsonString);
+        System.out.println(sysSingleModule.getParameterList());
         return sysSingleModule;
     }
+
+
     /**
      * 查询模型信息列表
      */

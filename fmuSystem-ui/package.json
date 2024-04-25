@@ -1,8 +1,8 @@
 {
-  "name": "ruoyi",
+  "name": "fmu",
   "version": "3.8.7",
   "description": "液压仿真模型库系统",
-  "author": "若依",
+  "author": "mm",
   "license": "MIT",
   "scripts": {
     "dev": "vue-cli-service serve",

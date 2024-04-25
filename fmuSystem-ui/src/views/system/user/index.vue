@@ -6,15 +6,15 @@
         <div class="head-container">
           <el-input
             v-model="deptName"
-            placeholder="请输入部门名称"
+            placeholder="请输入名称"
             clearable
             size="small"
             prefix-icon="el-icon-search"
             style="margin-bottom: 20px"
           />
         </div>
-        <div class="head-container">
-          <el-tree
+<!--        <div class="head-container">
+&lt;!&ndash;          <el-tree
             :data="deptOptions"
             :props="defaultProps"
             :expand-on-click-node="false"
@@ -24,8 +24,8 @@
             default-expand-all
             highlight-current
             @node-click="handleNodeClick"
-          />
-        </div>
+          />&ndash;&gt;
+        </div>-->
       </el-col>
       <!--用户数据-->
       <el-col :span="20" :xs="24">
@@ -510,6 +510,7 @@ export default {
     getDeptTree() {
       deptTreeSelect().then(response => {
         this.deptOptions = response.data;
+        console.log(this.deptOptions);
       });
     },
     // 筛选节点
@@ -640,7 +641,7 @@ export default {
       this.$router.push("/system/user-auth/role/" + userId);
     },
     /** 提交按钮 */
-    submitForm: function () {
+     submitForm: function () {
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.userId != undefined) {

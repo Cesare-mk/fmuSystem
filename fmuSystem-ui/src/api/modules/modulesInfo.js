@@ -3,8 +3,9 @@ import request from '@/utils/request'
 //读取模型信息
 export function readModulesInfo(path) {
   return request({
-    url: 'modules/modulesInfo/read' + path,
-    method: 'get',
+    url: '/modules/modulesInfo/read',
+    method: 'post',
+    data: path,
   })
 }
 

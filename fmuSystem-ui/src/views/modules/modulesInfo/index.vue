@@ -121,7 +121,7 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="modulesInfoList" @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data="modulesInfoList"  @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center"/>
       <el-table-column label="模型id" align="center" prop="moduleId"/>
       <el-table-column label="分类ID" align="center" prop="deptId"/>
@@ -142,7 +142,7 @@
       </el-table-column>
       <el-table-column label="描述" align="center" prop="description"/>
       <el-table-column label="模型地址路径" align="center" prop="modulePath"/>
-      <el-table-column label="参数列表" align="center" prop="parameterList"/>
+      <el-table-column width="300" label="参数列表" align="center" prop="parameterList"/>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -174,23 +174,14 @@
     />
 
     <!-- 添加或修改模型信息对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="700px" append-to-body>
+    <el-dialog :title="title" :visible.sync="open" width="800px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="分类ID" prop="deptId">
           <el-input v-model="form.deptId" placeholder="请输入分类ID" />
         </el-form-item>
         <el-form-item label="分类名称" prop="deptName">
-          <el-cascader
-            :options="options"
-            v-model="selectedValue"
-            @change="handleChange"
-            :props="{ checkStrictly: true }"
-            clearable>
-            <template slot-scope="{ node, data }">
-              <span>{{ data.label }}</span>
-              <span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
-            </template>
-          </el-cascader>
+          <treeselect v-model="form.deptId" :options="deptOptions" :show-count="true"
+                       placeholder="请选择归属分类"/>
         </el-form-item>
         <el-form-item label="模型名称" prop="moduleName">
           <el-input v-model="form.moduleName" placeholder="请输入模型名称"/>
@@ -224,11 +215,83 @@
           <editor v-model="form.description" :min-height="192"/>
         </el-form-item>
         <el-form-item label="模型路径" prop="modulePath">
-          <file-upload v-model="form.modulePath" @handleUploadSuccess="handleFileUploadSuccess"/>
+          <file-upload v-model="form.modulePath" />
           <el-button type="primary" icon="el-icon-s-finance" @click="readInfo" plain>读取模型信息</el-button>
         </el-form-item>
         <el-form-item label="参数列表">
-          <editor v-model="form.parameterList" :min-height="192"/>
+<!--          <editor v-model="form.parameterList" :min-height="192"/>-->
+          <!-- 参数列表表格 -->
+<!--          <el-table
+            :data="parameterList"
+            v-if="isTableVisible"
+            stripe
+            @cell-mouse-enter="handleCellEnter"
+            @cell-mouse-leave="handleCellLeave"
+            @cell-click="handleCellClick($event, scope)"
+          >
+            <el-table-column
+              fixed
+              v-for="column in tableColumns"
+              :key="column.prop"
+              :prop="column.prop"
+              :label="column.label"
+              :editable="column.editable"
+            >
+              <template slot-scope="scope">
+                <template v-if="scope.row.editing">
+                  <el-input
+                    v-if="scope.row.editing"
+                    v-model="scope.row[column.prop]"
+                    @keyup.enter.native="handleInputEnter(scope.row, column.prop)"
+                    @blur="handleInputBlur(scope.row, column.prop)"
+                  ></el-input>
+                </template>
+                <span v-else>{{ scope.row[column.prop] }}</span>
+              </template>
+            </el-table-column>
+          </el-table>-->
+         <!-- “重置参数”按钮 -->
+<!--          <el-button @click="resetTableData">重置参数</el-button>-->
+          <template>
+            <el-form :model="formData">
+              <el-table
+                :data="formData.tableData"
+                border
+                @cell-dblclick="handleCellDoubleClick"
+              >
+                <el-table-column
+                  v-for="column in tableColumns"
+                  :key="column.prop"
+                  :prop="column.prop"
+                  :label="column.label"
+                  align="center"
+                  header-align="center"
+                >
+                  <template slot-scope="scope">
+                    <el-form-item :prop="'tableData.' + scope.$index + '.' + column.prop">
+                      <el-input
+                        v-if="scope.row.editing"
+                        style="text-align: center;"
+                        v-model="scope.row[column.prop]"
+                        @blur="handleInputBlur(scope.row, column.prop)"
+                        @keyup.enter.native="handleInputEnter(scope.row, column.prop)"
+                      />
+                      <span v-else style="display: inline-block;width: 100%;text-align: center;color: #1d61d6;">
+              <el-button
+                type="primary"
+                plain
+                text
+                @click="handleEditClick(scope.row, column.prop)"
+              >
+                {{ scope.row[column.prop] }}
+              </el-button>
+            </span>
+                    </el-form-item>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </el-form>
+          </template>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -248,15 +311,44 @@ import {
   updateModulesInfo,
   readModulesInfo
 } from "@/api/modules/modulesInfo";
+import Treeselect from "@riophae/vue-treeselect";
+import "@riophae/vue-treeselect/dist/vue-treeselect.css";
+import {deptTreeSelect} from "@/api/system/user";
+import {getDept} from "@/api/system/dept";
+import { deepClone } from '@/utils/index.js'; // 假设你有一个工具函数用于深拷贝对象
+import { nextTick } from 'vue';
+import Vue from 'vue';
 
 export default {
   name: "ModulesInfo",
+  components: {Treeselect},
   data() {
     return {
+      parameterList: [],
+      // 控制表格显示的变量
+      isTableVisible: true,
+      // 表格列定义
+      tableColumns: [
+        { prop: "序号", label: "序号", editable: false },
+        { prop: "变量名", label: "变量名", editable: false },
+        { prop: "初始值", label: "初始值", editable: true },
+        { prop: "因果关系", label: "因果关系", editable: false },
+        { prop: "描述", label: "描述", editable: true },
+        { prop: "是否变量", label: "是否变量", editable: true },
+      ],
+      // 原始数据的深拷贝，用于在取消编辑时恢复数据
+      originalData: null,
+      formData: {
+        tableData: [], // 表格数据
+      },
       // 遮罩层
       loading: true,
       // 选中数组
       ids: [],
+      // 部门名称
+      //deptName: undefined,
+      // 部门树选项
+      deptOptions:[],
       // 非单个禁用
       single: true,
       // 非多个禁用
@@ -287,41 +379,6 @@ export default {
         modulePath: null,
         parameterList: null
       },
-      categoryMap: [
-        { deptId: 103, deptName: '齿轮泵' },
-        { deptId: 104, deptName: '柱塞泵' },
-        { deptId: 201, deptName: '传输带' },
-        { deptId: 202, deptName: '其他' },
-        ],
-      options: [{
-        value: '液压模型',
-        label: '液压模型',
-        children: [
-          {
-            value: '泵',
-            label: '泵',
-            children: [
-              {
-                value: '齿轮泵',
-                label: '齿轮泵'
-              }, {
-                value: '柱塞泵',
-                label: '柱塞泵'
-              }]
-          }, {
-            value: '传动',
-            label: '传动',
-            children: [
-              {
-                value: '传输带',
-                label: '传输带'
-              }, {
-                value: '其他',
-                label: '其他'
-              }]
-          }],
-      }],
-      selectedValue: [],//储存级联表中选择的值
       // 表单参数
       form: {},
       // 表单校验
@@ -334,46 +391,91 @@ export default {
 
       }
     };
+
+  },
+  watch: {
+
   },
   created() {
     this.getList();
+    this.getDeptTree();
   },
   methods: {
+    initParameterList() {
+      // 检查this.queryParams.parameterList和this.form.parameterList
+      let params = this.queryParams.parameterList || this.form.parameterList;
+      if (params) {
+        try {
+          // 尝试将参数字符串转换为JSON对象
+          this.originalData = deepClone(params);
+         // this.parameterList = JSON.parse(params);
+          this.formData.tableData = JSON.parse((params));
+        } catch (error) {
+          console.error('Error parsing parameterList JSON:', error);
+          // 如果转换失败，使用空数组作为默认值
+          //this.parameterList = [];
+          this.formData.tableData = [];
+        }
+      } else {
+        // 如果都没有值，使用空数组作为默认值
+       // this.parameterList = [];
+        this.formData.tableData = [];
+      }
+    },
 
-    handleFileUploadSuccess(){
+    handleCellDoubleClick(scope) {
+      // 双击单元格进入编辑状态
+      this.handleEditClick(scope.row, scope.column.prop);
+    },
+    handleInputBlur(row, prop) {
+      // 输入框失去焦点时，结束编辑状态
+      row.editing = false;
+      // 在这里可以添加数据验证逻辑
+      // 更新 formData 对象
+      this.formData.tableData = JSON.parse(JSON.stringify(this.formData.tableData));
+    },
+    handleInputEnter(row, prop) {
+      // 输入框按下 Enter 时，结束编辑状态
+      this.handleInputBlur(row, prop);
+    },
+    handleEditClick(row, prop) {
+      // 点击按钮进入编辑状态
+      this.$set(row, 'editing', true);
+      Vue.nextTick(() => {
+        // 自动获取焦点并选中内容
+        const input = this.$el.querySelector(`input[data-row-key="${row._key}"][data-col-key="${prop}"]`);
+        if (input) {
+          input.focus();
+          input.select();
+        }
+      });
+    },
 
-      console.log(this.form.modulePath)
+    /** 查询部门下拉树结构 */
+    getDeptTree() {
+      deptTreeSelect().then(response => {
+        this.deptOptions = response.data;
+      });
     },
     /** 读取模型信息*/
     readInfo(){
-      readModulesInfo(this.form.modulePath).then(response=>{
-        this.form.moduleName= response.moduleName;
-        this.form.author= response.author;
-        this.form.fmuVersion = response.fmuVersion;
-        this.form.description = response.description;
-        this.form.parameterList= response.parameterList;
-      });
+      const newPath =(this.form.modulePath);
+      //const newDeptId = this.form.deptId;
+      //console.log(newDeptId);
+      //console.log(this.form.deptName)
+      if(newPath) {
+        readModulesInfo({filePath: newPath}).then(response => {
+          this.form.moduleName = response.moduleName;
+          this.form.author = response.author;
+          this.form.fmuVersion = response.fmuVersion;
+          this.form.description = response.description;
+          this.form.parameterList = response.parameterList;
+          this.initParameterList();
+        });
+      }else{
+        this.$modal.msgError("请先上传文件");
+      }
     },
-    /** 级联表选择操作选择最后一项 */
-      handleChange(value){
-        if (value && value.length > 0) {
-          // 获取最后一个值作为分类名称
-          this.form.deptName = value[value.length - 1];
-          // 通过分类名称查找对应的分类ID
-          const selectedCategory = this.categoryMap.find(category => category.deptName === this.form.deptName);
-          if (selectedCategory) {
-            // 更新表单模型中的分类ID
-            this.form.deptId = selectedCategory.deptId;
-          } else {
-            // 如果找不到匹配项，则清空表单模型中的分类ID
-            this.form.deptId = null;
-          }
-        } else {
-          // 如果没有选中的值，则清空表单模型中的分类ID
-          this.form.deptId = null;
-        }
-        this.selectedValue = value; // 更新selectedValue以反映当前选择
-      },
     /** 查询模型信息列表 */
     getList() {
       this.loading = true;
@@ -436,48 +538,44 @@ export default {
         this.form = response.data;
         this.open = true;
         this.title = "修改模型信息";
+        this.initParameterList();
+
       });
     },
+
     /** 提交按钮 */
     submitForm() {
-      this.$refs["form"].validate(valid => {
-        if (valid) {
-          if (this.form.moduleId != null) {
-            updateModulesInfo(this.form).then(response => {
-              //this.form.description = this.removeAllTags(this.form.description);
-              this.$modal.msgSuccess("修改成功");
-              this.open = false;
-              this.getList();
-            });
-          } else {
-            addModulesInfo(this.form).then(response => {
-              //this.form.parameterList = this.removeAllTags(this.form.parameterList);
-              this.$modal.msgSuccess("新增成功");
-              this.open = false;
-              this.getList();
-            });
-          }
+      const newDeptId = this.form.deptId;
+      getDept(newDeptId).then(response => {
+        // 更新表单数据中的分类名称
+        this.form.deptName = response.data.deptName;
+        // 确保 parameterList 是一个 JSON 字符串
+        if (Array.isArray(this.formData.tableData)) {
+          this.form.parameterList = JSON.stringify(this.formData.tableData);
+        } else {
+          this.form.parameterList = this.formData.tableData;
         }
+        //console.log( '更新后的分类名' + this.form.deptName);
+        // 手动触发表单验证
+        this.$refs["form"].validate(valid => {
+          if (valid) {
+            if (this.form.moduleId != null) {
+              updateModulesInfo(this.form).then(response => {
+                this.$modal.msgSuccess("修改成功");
+                this.open = false;
+                this.getList();
+              });
+            } else {
+              addModulesInfo(this.form).then(response => {
+                this.$modal.msgSuccess("新增成功");
+                this.open = false;
+                this.getList();
+              });
+            }
+          }
+        });
       });
     },
-    /** 去除富文本多余的标签*/
-    /*removeAllTags(htmlContent) {
-      /!** 匹配所有结果*!/
-      //return htmlContent.replace(/<[^>]*>/g,'');
-      const regex = /<[^>]*>/g;
-      const matches = [];
-      let match;
-      if (htmlContent.indexOf('<p>') === -1) {
-        /!** 如果没有 <p> 标签，则直接将整个字符串作为匹配结果*!/
-        matches.push(htmlContent);
-      } else {
-        while ((match = regex.exec(htmlContent)) !== null) {
-          /!** 将匹配到的内容添加到数组中*!/
-          matches.push(match[1]);
-        }
-      }
-      return matches;
-    },*/
     /** 删除按钮操作 */
     handleDelete(row) {
       const moduleIds = row.moduleId || this.ids;
@@ -495,6 +593,7 @@ export default {
         ...this.queryParams
       }, `modulesInfo_${new Date().getTime()}.xlsx`)
     }
+
   }
 }
 </script>
