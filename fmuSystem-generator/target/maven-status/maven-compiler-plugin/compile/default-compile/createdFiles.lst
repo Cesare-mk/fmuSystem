@@ -1,0 +1,13 @@
+com\fmu\generator\service\GenTableColumnServiceImpl.class
+com\fmu\generator\util\VelocityInitializer.class
+com\fmu\generator\service\GenTableServiceImpl.class
+com\fmu\generator\domain\GenTable.class
+com\fmu\generator\service\IGenTableColumnService.class
+com\fmu\generator\mapper\GenTableMapper.class
+com\fmu\generator\util\VelocityUtils.class
+com\fmu\generator\util\GenUtils.class
+com\fmu\generator\domain\GenTableColumn.class
+com\fmu\generator\service\IGenTableService.class
+com\fmu\generator\controller\GenController.class
+com\fmu\generator\config\GenConfig.class
+com\fmu\generator\mapper\GenTableColumnMapper.class
