@@ -5,7 +5,7 @@ import com.fmu.common.utils.DateUtils;
 import com.fmu.common.utils.StringUtils;
 
 /**
- * @author ruoyi 序列生成类
+ * @author mm 序列生成类
  */
 public class Seq
 {

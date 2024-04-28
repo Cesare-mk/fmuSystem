@@ -14,7 +14,7 @@ import com.fmu.system.service.ISysConfigService;
 /**
  * 注册验证
  * 
- * @author ruoyi
+ * @author mm
  */
 @RestController
 public class SysRegisterController extends BaseController

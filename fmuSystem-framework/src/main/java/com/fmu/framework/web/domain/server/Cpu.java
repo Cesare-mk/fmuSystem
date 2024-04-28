@@ -5,7 +5,7 @@ import com.fmu.common.utils.Arith;
 /**
  * CPU相关信息
  * 
- * @author ruoyi
+ * @author mm
  */
 public class Cpu
 {

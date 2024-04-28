@@ -3,7 +3,7 @@ package com.fmu.common.enums;
 /**
  * 业务操作类型
  * 
- * @author ruoyi
+ * @author mm
  */
 public enum BusinessType
 {

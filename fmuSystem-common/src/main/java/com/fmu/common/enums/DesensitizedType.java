@@ -6,7 +6,7 @@ import com.fmu.common.utils.DesensitizedUtil;
 /**
  * 脱敏类型
  *
- * @author ruoyi
+ * @author mm
  */
 public enum DesensitizedType
 {

@@ -26,7 +26,7 @@ import com.fmu.system.service.ISysUserService;
 /**
  * 个人信息 业务处理
  * 
- * @author ruoyi
+ * @author mm
  */
 @RestController
 @RequestMapping("/system/user/profile")

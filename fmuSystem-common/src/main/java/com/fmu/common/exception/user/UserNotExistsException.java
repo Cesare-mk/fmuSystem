@@ -3,7 +3,7 @@ package com.fmu.common.exception.user;
 /**
  * 用户不存在异常类
  * 
- * @author ruoyi
+ * @author mm
  */
 public class UserNotExistsException extends UserException
 {

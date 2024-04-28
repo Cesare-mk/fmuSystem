@@ -5,7 +5,7 @@ import com.fmu.common.utils.StringUtils;
 /**
  * 字符串格式化
  * 
- * @author ruoyi
+ * @author mm
  */
 public class StrFormatter
 {

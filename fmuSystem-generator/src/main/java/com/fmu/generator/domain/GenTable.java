@@ -11,7 +11,7 @@ import com.fmu.common.utils.StringUtils;
 /**
  * 业务表 gen_table
  * 
- * @author ruoyi
+ * @author mm
  */
 public class GenTable extends BaseEntity
 {

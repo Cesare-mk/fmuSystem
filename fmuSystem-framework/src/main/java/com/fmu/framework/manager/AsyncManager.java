@@ -9,7 +9,7 @@ import com.fmu.common.utils.spring.SpringUtils;
 /**
  * 异步任务管理器
  * 
- * @author ruoyi
+ * @author mm
  */
 public class AsyncManager
 {

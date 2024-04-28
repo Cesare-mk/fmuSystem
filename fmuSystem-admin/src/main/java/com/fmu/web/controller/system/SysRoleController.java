@@ -34,7 +34,7 @@ import com.fmu.system.service.ISysUserService;
 /**
  * 角色信息
  * 
- * @author ruoyi
+ * @author mm
  */
 @RestController
 @RequestMapping("/system/role")

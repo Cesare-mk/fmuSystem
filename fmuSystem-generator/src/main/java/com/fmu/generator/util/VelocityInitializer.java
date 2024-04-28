@@ -7,7 +7,7 @@ import com.fmu.common.constant.Constants;
 /**
  * VelocityEngine工厂
  * 
- * @author ruoyi
+ * @author mm
  */
 public class VelocityInitializer
 {

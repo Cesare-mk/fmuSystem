@@ -9,7 +9,7 @@ import com.fmu.system.service.ISysUserOnlineService;
 /**
  * 在线用户 服务层处理
  * 
- * @author ruoyi
+ * @author mm
  */
 @Service
 public class SysUserOnlineServiceImpl implements ISysUserOnlineService

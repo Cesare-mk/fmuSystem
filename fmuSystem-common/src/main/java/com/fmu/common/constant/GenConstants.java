@@ -3,7 +3,7 @@ package com.fmu.common.constant;
 /**
  * 代码生成通用常量
  * 
- * @author ruoyi
+ * @author mm
  */
 public class GenConstants
 {

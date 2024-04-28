@@ -15,7 +15,7 @@ import com.fmu.common.xss.Xss;
 /**
  * 用户对象 sys_user
  * 
- * @author ruoyi
+ * @author mm
  */
 public class SysUser extends BaseEntity
 {

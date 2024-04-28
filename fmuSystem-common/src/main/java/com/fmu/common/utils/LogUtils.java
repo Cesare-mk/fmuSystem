@@ -3,7 +3,7 @@ package com.fmu.common.utils;
 /**
  * 处理并记录日志文件
  * 
- * @author ruoyi
+ * @author mm
  */
 public class LogUtils
 {

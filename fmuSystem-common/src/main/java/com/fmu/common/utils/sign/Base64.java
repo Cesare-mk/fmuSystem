@@ -3,7 +3,7 @@ package com.fmu.common.utils.sign;
 /**
  * Base64工具类
  * 
- * @author ruoyi
+ * @author mm
  */
 public final class Base64
 {

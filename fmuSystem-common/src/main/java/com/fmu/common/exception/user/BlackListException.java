@@ -3,7 +3,7 @@ package com.fmu.common.exception.user;
 /**
  * 黑名单IP异常类
  * 
- * @author ruoyi
+ * @author mm
  */
 public class BlackListException extends UserException
 {

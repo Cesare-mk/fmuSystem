@@ -16,7 +16,7 @@ import com.fmu.generator.domain.GenTableColumn;
 /**
  * 模板处理工具类
  * 
- * @author ruoyi
+ * @author mm
  */
 public class VelocityUtils
 {

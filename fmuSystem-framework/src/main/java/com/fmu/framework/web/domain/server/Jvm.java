@@ -7,7 +7,7 @@ import com.fmu.common.utils.DateUtils;
 /**
  * JVM相关信息
  * 
- * @author ruoyi
+ * @author mm
  */
 public class Jvm
 {

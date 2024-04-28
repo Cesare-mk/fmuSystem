@@ -5,7 +5,7 @@ import com.fmu.common.utils.StringUtils;
 /**
  * 缓存信息
  * 
- * @author ruoyi
+ * @author mm
  */
 public class SysCache
 {

@@ -6,7 +6,7 @@ import com.fmu.system.domain.SysOperLog;
 /**
  * 操作日志 数据层
  * 
- * @author ruoyi
+ * @author mm
  */
 public interface SysOperLogMapper
 {

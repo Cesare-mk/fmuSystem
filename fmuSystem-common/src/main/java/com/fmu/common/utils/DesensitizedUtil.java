@@ -3,7 +3,7 @@ package com.fmu.common.utils;
 /**
  * 脱敏工具类
  *
- * @author ruoyi
+ * @author mm
  */
 public class DesensitizedUtil
 {

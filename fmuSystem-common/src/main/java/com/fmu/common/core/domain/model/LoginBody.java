@@ -3,7 +3,7 @@ package com.fmu.common.core.domain.model;
 /**
  * 用户登录对象
  * 
- * @author ruoyi
+ * @author mm
  */
 public class LoginBody
 {

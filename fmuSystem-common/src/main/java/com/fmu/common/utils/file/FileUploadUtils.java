@@ -18,7 +18,7 @@ import com.fmu.common.utils.uuid.Seq;
 /**
  * 文件上传工具类
  *
- * @author ruoyi
+ * @author mm
  */
 public class FileUploadUtils
 {

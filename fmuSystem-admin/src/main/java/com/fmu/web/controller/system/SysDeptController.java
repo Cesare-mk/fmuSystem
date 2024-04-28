@@ -25,7 +25,7 @@ import com.fmu.system.service.ISysDeptService;
 /**
  * 部门信息
  * 
- * @author ruoyi
+ * @author mm
  */
 @RestController
 @RequestMapping("/system/dept")

@@ -20,7 +20,7 @@ import com.fmu.common.utils.StringUtils;
 /**
  * 全局异常处理器
  * 
- * @author ruoyi
+ * @author mm
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler

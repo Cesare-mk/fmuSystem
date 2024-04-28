@@ -14,7 +14,7 @@ import com.fmu.common.utils.ServletUtils;
 /**
  * 防止重复提交拦截器
  *
- * @author ruoyi
+ * @author mm
  */
 @Component
 public abstract class RepeatSubmitInterceptor implements HandlerInterceptor

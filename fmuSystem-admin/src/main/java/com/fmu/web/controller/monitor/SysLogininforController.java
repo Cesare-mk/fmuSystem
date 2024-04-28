@@ -23,7 +23,7 @@ import com.fmu.system.service.ISysLogininforService;
 /**
  * 系统访问记录
  * 
- * @author ruoyi
+ * @author mm
  */
 @RestController
 @RequestMapping("/monitor/logininfor")

@@ -3,7 +3,7 @@ package com.fmu.common.exception;
 /**
  * 工具类异常
  * 
- * @author ruoyi
+ * @author mm
  */
 public class UtilException extends RuntimeException
 {

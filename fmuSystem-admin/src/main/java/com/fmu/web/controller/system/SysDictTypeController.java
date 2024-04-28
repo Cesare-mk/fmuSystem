@@ -25,7 +25,7 @@ import com.fmu.system.service.ISysDictTypeService;
 /**
  * 数据字典信息
  * 
- * @author ruoyi
+ * @author mm
  */
 @RestController
 @RequestMapping("/system/dict/type")

@@ -6,7 +6,7 @@ import com.fmu.common.utils.StringUtils;
 /**
  * 基础异常
  * 
- * @author ruoyi
+ * @author mm
  */
 public class BaseException extends RuntimeException
 {

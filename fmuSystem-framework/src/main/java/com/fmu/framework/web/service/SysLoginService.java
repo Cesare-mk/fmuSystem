@@ -32,7 +32,7 @@ import com.fmu.system.service.ISysUserService;
 /**
  * 登录校验方法
  * 
- * @author ruoyi
+ * @author mm
  */
 @Component
 public class SysLoginService

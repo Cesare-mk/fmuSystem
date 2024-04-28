@@ -9,7 +9,7 @@ import com.fmu.common.utils.StringUtils;
 /**
  * 获取IP方法
  * 
- * @author ruoyi
+ * @author mm
  */
 public class IpUtils
 {

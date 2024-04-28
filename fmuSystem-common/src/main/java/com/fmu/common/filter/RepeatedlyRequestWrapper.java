@@ -15,7 +15,7 @@ import com.fmu.common.constant.Constants;
 /**
  * 构建可重复读取inputStream的request
  * 
- * @author ruoyi
+ * @author mm
  */
 public class RepeatedlyRequestWrapper extends HttpServletRequestWrapper
 {

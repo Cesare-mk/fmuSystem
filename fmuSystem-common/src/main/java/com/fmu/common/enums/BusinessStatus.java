@@ -3,7 +3,7 @@ package com.fmu.common.enums;
 /**
  * 操作状态
  * 
- * @author ruoyi
+ * @author mm
  *
  */
 public enum BusinessStatus

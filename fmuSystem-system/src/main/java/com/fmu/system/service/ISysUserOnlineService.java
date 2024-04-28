@@ -6,7 +6,7 @@ import com.fmu.system.domain.SysUserOnline;
 /**
  * 在线用户 服务层
  * 
- * @author ruoyi
+ * @author mm
  */
 public interface ISysUserOnlineService
 {

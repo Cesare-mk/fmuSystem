@@ -3,7 +3,7 @@ package com.fmu.framework.web.domain.server;
 /**
  * 系统相关信息
  * 
- * @author ruoyi
+ * @author mm
  */
 public class Sys
 {

@@ -11,7 +11,7 @@ import com.fmu.common.enums.LimitType;
 /**
  * 限流注解
  * 
- * @author ruoyi
+ * @author mm
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

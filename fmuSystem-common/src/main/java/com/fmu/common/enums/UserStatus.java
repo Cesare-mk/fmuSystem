@@ -3,7 +3,7 @@ package com.fmu.common.enums;
 /**
  * 用户状态
  * 
- * @author ruoyi
+ * @author mm
  */
 public enum UserStatus
 {

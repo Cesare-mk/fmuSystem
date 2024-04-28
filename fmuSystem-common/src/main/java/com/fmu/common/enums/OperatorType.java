@@ -3,7 +3,7 @@ package com.fmu.common.enums;
 /**
  * 操作人类别
  * 
- * @author ruoyi
+ * @author mm
  */
 public enum OperatorType
 {

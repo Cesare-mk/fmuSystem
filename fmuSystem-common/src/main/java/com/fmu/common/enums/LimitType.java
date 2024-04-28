@@ -3,7 +3,7 @@ package com.fmu.common.enums;
 /**
  * 限流类型
  *
- * @author ruoyi
+ * @author mm
  */
 
 public enum LimitType

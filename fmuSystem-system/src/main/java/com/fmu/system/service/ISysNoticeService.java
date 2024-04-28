@@ -6,7 +6,7 @@ import com.fmu.system.domain.SysNotice;
 /**
  * 公告 服务层
  * 
- * @author ruoyi
+ * @author mm
  */
 public interface ISysNoticeService
 {

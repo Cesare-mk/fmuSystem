@@ -7,7 +7,7 @@ import com.fmu.common.utils.spring.SpringUtils;
 /**
  * 获取i18n资源文件
  * 
- * @author ruoyi
+ * @author mm
  */
 public class MessageUtils
 {

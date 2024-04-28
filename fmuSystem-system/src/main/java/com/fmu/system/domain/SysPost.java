@@ -12,7 +12,7 @@ import com.fmu.common.core.domain.BaseEntity;
 /**
  * 岗位表 sys_post
  * 
- * @author ruoyi
+ * @author mm
  */
 public class SysPost extends BaseEntity
 {

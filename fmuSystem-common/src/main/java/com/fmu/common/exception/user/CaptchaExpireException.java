@@ -3,7 +3,7 @@ package com.fmu.common.exception.user;
 /**
  * 验证码失效异常类
  * 
- * @author ruoyi
+ * @author mm
  */
 public class CaptchaExpireException extends UserException
 {

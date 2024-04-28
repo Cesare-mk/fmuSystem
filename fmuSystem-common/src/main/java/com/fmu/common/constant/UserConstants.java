@@ -3,7 +3,7 @@ package com.fmu.common.constant;
 /**
  * 用户常量信息
  * 
- * @author ruoyi
+ * @author mm
  */
 public class UserConstants
 {

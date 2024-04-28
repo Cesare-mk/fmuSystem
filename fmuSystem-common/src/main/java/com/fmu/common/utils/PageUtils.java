@@ -8,7 +8,7 @@ import com.fmu.common.utils.sql.SqlUtil;
 /**
  * 分页工具类
  * 
- * @author ruoyi
+ * @author mm
  */
 public class PageUtils extends PageHelper
 {

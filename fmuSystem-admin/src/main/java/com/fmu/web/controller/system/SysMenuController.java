@@ -24,7 +24,7 @@ import com.fmu.system.service.ISysMenuService;
 /**
  * 菜单信息
  * 
- * @author ruoyi
+ * @author mm
  */
 @RestController
 @RequestMapping("/system/menu")

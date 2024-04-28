@@ -6,7 +6,7 @@ import com.fmu.common.core.domain.entity.SysUser;
 /**
  * 用户 业务层
  * 
- * @author ruoyi
+ * @author mm
  */
 public interface ISysUserService
 {

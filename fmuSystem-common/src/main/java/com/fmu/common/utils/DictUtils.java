@@ -11,7 +11,7 @@ import com.fmu.common.utils.spring.SpringUtils;
 /**
  * 字典工具类
  * 
- * @author ruoyi
+ * @author mm
  */
 public class DictUtils
 {

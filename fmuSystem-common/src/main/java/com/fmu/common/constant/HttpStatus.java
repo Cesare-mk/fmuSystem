@@ -3,7 +3,7 @@ package com.fmu.common.constant;
 /**
  * 返回状态码
  * 
- * @author ruoyi
+ * @author mm
  */
 public class HttpStatus
 {

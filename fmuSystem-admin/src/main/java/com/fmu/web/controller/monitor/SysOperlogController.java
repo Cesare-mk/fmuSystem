@@ -22,7 +22,7 @@ import com.fmu.system.service.ISysOperLogService;
 /**
  * 操作日志记录
  * 
- * @author ruoyi
+ * @author mm
  */
 @RestController
 @RequestMapping("/monitor/operlog")

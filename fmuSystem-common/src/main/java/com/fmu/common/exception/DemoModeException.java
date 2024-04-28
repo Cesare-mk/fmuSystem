@@ -3,7 +3,7 @@ package com.fmu.common.exception;
 /**
  * 演示模式异常
  * 
- * @author ruoyi
+ * @author mm
  */
 public class DemoModeException extends RuntimeException
 {

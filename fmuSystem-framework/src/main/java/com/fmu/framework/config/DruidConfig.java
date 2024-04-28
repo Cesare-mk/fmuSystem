@@ -27,7 +27,7 @@ import com.fmu.framework.datasource.DynamicDataSource;
 /**
  * druid 配置多数据源
  * 
- * @author ruoyi
+ * @author mm
  */
 @Configuration
 public class DruidConfig

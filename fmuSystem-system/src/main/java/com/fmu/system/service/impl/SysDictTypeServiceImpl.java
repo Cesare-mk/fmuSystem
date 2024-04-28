@@ -21,7 +21,7 @@ import com.fmu.system.service.ISysDictTypeService;
 /**
  * 字典 业务层处理
  * 
- * @author ruoyi
+ * @author mm
  */
 @Service
 public class SysDictTypeServiceImpl implements ISysDictTypeService

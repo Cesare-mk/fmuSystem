@@ -23,7 +23,7 @@ import com.fmu.system.service.ISysNoticeService;
 /**
  * 公告 信息操作处理
  * 
- * @author ruoyi
+ * @author mm
  */
 @RestController
 @RequestMapping("/system/notice")

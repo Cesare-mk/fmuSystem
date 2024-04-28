@@ -6,7 +6,7 @@ import com.fmu.common.utils.StringUtils;
 /**
  * sql操作工具类
  * 
- * @author ruoyi
+ * @author mm
  */
 public class SqlUtil
 {

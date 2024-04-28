@@ -8,7 +8,7 @@ import com.fmu.system.domain.SysUserRole;
 /**
  * 角色业务层
  * 
- * @author ruoyi
+ * @author mm
  */
 public interface ISysRoleService
 {

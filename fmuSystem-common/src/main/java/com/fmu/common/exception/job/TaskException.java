@@ -3,7 +3,7 @@ package com.fmu.common.exception.job;
 /**
  * 计划策略异常
  * 
- * @author ruoyi
+ * @author mm
  */
 public class TaskException extends Exception
 {

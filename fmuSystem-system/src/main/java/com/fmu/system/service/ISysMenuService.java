@@ -9,7 +9,7 @@ import com.fmu.system.domain.vo.RouterVo;
 /**
  * 菜单 业务层
  * 
- * @author ruoyi
+ * @author mm
  */
 public interface ISysMenuService
 {

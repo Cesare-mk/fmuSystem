@@ -12,7 +12,7 @@ import com.fmu.common.utils.http.HttpUtils;
 /**
  * 获取地址类
  * 
- * @author ruoyi
+ * @author mm
  */
 public class AddressUtils
 {

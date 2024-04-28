@@ -13,7 +13,7 @@ import com.fmu.common.core.domain.BaseEntity;
 /**
  * 部门表 sys_dept
  * 
- * @author ruoyi
+ * @author mm
  */
 public class SysDept extends BaseEntity
 {
