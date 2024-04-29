@@ -1,0 +1,13 @@
+17:37:18.194 [restartedMain] INFO  c.f.SpringBootApplication - [logStarting,55] - Starting SpringBootApplication using Java 17.0.8 on LAPTOP-H611QC07 with PID 2784 (D:\JetBrains-work\Java\FmuSystem\fmuSystem-admin\target\classes started by 马宇 in D:\JetBrains-work\Java\fmuSystem)
+17:37:18.195 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.2.5.Final
+17:37:18.197 [restartedMain] INFO  c.f.SpringBootApplication - [logStartupProfileInfo,686] - The following 1 profile is active: "druid"
+17:37:20.431 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8080"]
+17:37:20.432 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+17:37:20.459 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.75]
+17:37:20.558 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+17:37:22.406 [restartedMain] INFO  c.a.d.p.DruidDataSource - [init,1009] - {dataSource-1} inited
+17:37:25.166 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8080"]
+17:37:25.411 [restartedMain] INFO  c.f.SpringBootApplication - [logStarted,61] - Started SpringBootApplication in 7.575 seconds (JVM running for 8.51)
+17:40:23.939 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,31] - ====关闭后台任务任务线程池====
+17:40:23.945 [SpringApplicationShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2174] - {dataSource-1} closing ...
+17:40:23.953 [SpringApplicationShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2247] - {dataSource-1} closed
