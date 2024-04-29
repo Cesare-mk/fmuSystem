@@ -2,11 +2,10 @@ package com.fmu.common.enums;
 
 /**
  * 数据源
- * 
+ *
  * @author mm
  */
-public enum DataSourceType
-{
+public enum DataSourceType {
     /**
      * 主库
      */

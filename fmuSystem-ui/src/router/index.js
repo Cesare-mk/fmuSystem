@@ -66,6 +66,11 @@ export const constantRoutes = [
     component: () => import('@/views/error/401'),
     hidden: true
   },
+  /*  {
+      path: '/draw',
+      component: () =>import('@views/system/draw/index.vue'),
+      hidden: true
+    },*/
   {
     path: '',
     component: Layout,

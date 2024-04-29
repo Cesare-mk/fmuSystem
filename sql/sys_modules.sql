@@ -16,9 +16,11 @@
 --     FOREIGN KEY (dept_id) REFERENCES sys_dept(dept_id)
 -- );
 -- 
-# 查询json数据
+#
+查询json数据
 
-select parameter_list->'$[*].序号' AS initial_value, 
-parameter_list->'$[*].变量名' AS vavrible
-from sys_modules where parameter_list is not null;
+select parameter_list - > '$[*].序号'   AS initial_value,
+       parameter_list - > '$[*].变量名' AS vavrible
+from sys_modules
+where parameter_list is not null;
 

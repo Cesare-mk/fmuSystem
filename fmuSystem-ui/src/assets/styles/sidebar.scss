@@ -84,10 +84,11 @@
         background-color: $base-sub-menu-hover !important;
       }
     }
+
     .submenu-title-noDropdown,
     .el-submenu__title {
       &:hover {
-        background-color:  $base-sub-menu-hover !important;
+        background-color: $base-sub-menu-hover !important;
       }
     }
 
@@ -106,9 +107,10 @@
 
     & .theme-dark .nest-menu .el-submenu > .el-submenu__title,
     & .theme-dark .el-submenu .el-menu-item {
-     // background-color: $base-sub-menu-background !important;
+      // background-color: $base-sub-menu-background !important;
       color: #333333 !important;
       background-color: #fff;
+
       &:hover {
         background-color: $base-sub-menu-hover !important;
       }

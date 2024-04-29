@@ -97,16 +97,16 @@
             v-hasPermi="['system:dept:remove']"
           >删除
           </el-button>
-<!--          <el-button
-            v-if="scope.row.parentId != 0"
-            size="mini"
-            type="text"
-            icon="el-icon-plus"
-            @click="toChild"
-            v-hasPermi="['system:dept:add']"
-          >添加模型
-            <ModelUploadDialog ref="modelUploadDialog" :visible.sync="openUploadDialog" @update:visible="handleDialogVisibility"/>
-          </el-button>-->
+          <!--          <el-button
+                      v-if="scope.row.parentId != 0"
+                      size="mini"
+                      type="text"
+                      icon="el-icon-plus"
+                      @click="toChild"
+                      v-hasPermi="['system:dept:add']"
+                    >添加模型
+                      <ModelUploadDialog ref="modelUploadDialog" :visible.sync="openUploadDialog" @update:visible="handleDialogVisibility"/>
+                    </el-button>-->
         </template>
       </el-table-column>
     </el-table>
@@ -178,12 +178,12 @@ import {listDept, getDept, delDept, addDept, updateDept, listDeptExcludeChild} f
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 
-import ModelUploadDialog from "@/views/system/modules/upload.vue";
+/*import ModelUploadDialog from "@/views/system/modules/upload.vue";*/
 
 export default {
   name: "Dept",
   dicts: ['sys_normal_disable'],
-  components: {Treeselect, ModelUploadDialog},
+  components: {Treeselect},
   data() {
     return {
       // 遮罩层

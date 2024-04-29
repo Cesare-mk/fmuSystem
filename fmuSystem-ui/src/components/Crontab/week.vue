@@ -22,7 +22,7 @@
             :label="item.value"
             :value="item.key"
             :disabled="item.key === 1"
-          >{{item.value}}
+          >{{ item.value }}
           </el-option>
         </el-select>
         -
@@ -33,7 +33,7 @@
             :label="item.value"
             :value="item.key"
             :disabled="item.key < cycle01 && item.key !== 1"
-          >{{item.value}}
+          >{{ item.value }}
           </el-option>
         </el-select>
       </el-radio>
@@ -46,7 +46,7 @@
         周的星期
         <el-select clearable v-model="average02">
           <el-option v-for="(item,index) of weekList" :key="index" :label="item.value" :value="item.key">
-            {{item.value}}
+            {{ item.value }}
           </el-option>
         </el-select>
       </el-radio>
@@ -57,7 +57,7 @@
         本月最后一个星期
         <el-select clearable v-model="weekday">
           <el-option v-for="(item,index) of weekList" :key="index" :label="item.value" :value="item.key">
-            {{item.value}}
+            {{ item.value }}
           </el-option>
         </el-select>
       </el-radio>
@@ -68,7 +68,7 @@
         指定
         <el-select clearable v-model="checkboxList" placeholder="可多选" multiple style="width:100%">
           <el-option v-for="(item,index) of weekList" :key="index" :label="item.value" :value="String(item.key)">
-            {{item.value}}
+            {{ item.value }}
           </el-option>
         </el-select>
       </el-radio>

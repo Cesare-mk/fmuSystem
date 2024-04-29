@@ -121,7 +121,7 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="modulesInfoList"  @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data="modulesInfoList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center"/>
       <el-table-column label="模型id" align="center" prop="moduleId"/>
       <el-table-column label="分类ID" align="center" prop="deptId"/>
@@ -177,11 +177,11 @@
     <el-dialog :title="title" :visible.sync="open" width="800px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="分类ID" prop="deptId">
-          <el-input v-model="form.deptId" placeholder="请输入分类ID" />
+          <el-input v-model="form.deptId" placeholder="请输入分类ID"/>
         </el-form-item>
         <el-form-item label="分类名称" prop="deptName">
           <treeselect v-model="form.deptId" :options="deptOptions" :show-count="true"
-                       placeholder="请选择归属分类"/>
+                      placeholder="请选择归属分类"/>
         </el-form-item>
         <el-form-item label="模型名称" prop="moduleName">
           <el-input v-model="form.moduleName" placeholder="请输入模型名称"/>
@@ -215,43 +215,10 @@
           <editor v-model="form.description" :min-height="192"/>
         </el-form-item>
         <el-form-item label="模型路径" prop="modulePath">
-          <file-upload v-model="form.modulePath" />
+          <file-upload v-model="form.modulePath"/>
           <el-button type="primary" icon="el-icon-s-finance" @click="readInfo" plain>读取模型信息</el-button>
         </el-form-item>
         <el-form-item label="参数列表">
-<!--          <editor v-model="form.parameterList" :min-height="192"/>-->
-          <!-- 参数列表表格 -->
-<!--          <el-table
-            :data="parameterList"
-            v-if="isTableVisible"
-            stripe
-            @cell-mouse-enter="handleCellEnter"
-            @cell-mouse-leave="handleCellLeave"
-            @cell-click="handleCellClick($event, scope)"
-          >
-            <el-table-column
-              fixed
-              v-for="column in tableColumns"
-              :key="column.prop"
-              :prop="column.prop"
-              :label="column.label"
-              :editable="column.editable"
-            >
-              <template slot-scope="scope">
-                <template v-if="scope.row.editing">
-                  <el-input
-                    v-if="scope.row.editing"
-                    v-model="scope.row[column.prop]"
-                    @keyup.enter.native="handleInputEnter(scope.row, column.prop)"
-                    @blur="handleInputBlur(scope.row, column.prop)"
-                  ></el-input>
-                </template>
-                <span v-else>{{ scope.row[column.prop] }}</span>
-              </template>
-            </el-table-column>
-          </el-table>-->
-         <!-- “重置参数”按钮 -->
-<!--          <el-button @click="resetTableData">重置参数</el-button>-->
           <template>
             <el-form :model="formData">
               <el-table
@@ -315,8 +282,8 @@ import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 import {deptTreeSelect} from "@/api/system/user";
 import {getDept} from "@/api/system/dept";
-import { deepClone } from '@/utils/index.js'; // 假设你有一个工具函数用于深拷贝对象
-import { nextTick } from 'vue';
+import {deepClone} from '@/utils/index.js'; // 假设你有一个工具函数用于深拷贝对象
+import {nextTick} from 'vue';
 import Vue from 'vue';
 
 export default {
@@ -329,12 +296,12 @@ export default {
       isTableVisible: true,
       // 表格列定义
       tableColumns: [
-        { prop: "序号", label: "序号", editable: false },
-        { prop: "变量名", label: "变量名", editable: false },
-        { prop: "初始值", label: "初始值", editable: true },
-        { prop: "因果关系", label: "因果关系", editable: false },
-        { prop: "描述", label: "描述", editable: true },
-        { prop: "是否变量", label: "是否变量", editable: true },
+        {prop: "序号", label: "序号", editable: false},
+        {prop: "变量名", label: "变量名", editable: false},
+        {prop: "初始值", label: "初始值", editable: true},
+        {prop: "因果关系", label: "因果关系", editable: false},
+        {prop: "描述", label: "描述", editable: true},
+        {prop: "是否变量", label: "是否变量", editable: true},
       ],
       // 原始数据的深拷贝，用于在取消编辑时恢复数据
       originalData: null,
@@ -348,7 +315,7 @@ export default {
       // 部门名称
       //deptName: undefined,
       // 部门树选项
-      deptOptions:[],
+      deptOptions: [],
       // 非单个禁用
       single: true,
       // 非多个禁用
@@ -393,9 +360,7 @@ export default {
     };
 
   },
-  watch: {
-
-  },
+  watch: {},
   created() {
     this.getList();
     this.getDeptTree();
@@ -408,7 +373,7 @@ export default {
         try {
           // 尝试将参数字符串转换为JSON对象
           this.originalData = deepClone(params);
-         // this.parameterList = JSON.parse(params);
+          // this.parameterList = JSON.parse(params);
           this.formData.tableData = JSON.parse((params));
         } catch (error) {
           console.error('Error parsing parameterList JSON:', error);
@@ -418,7 +383,7 @@ export default {
         }
       } else {
         // 如果都没有值，使用空数组作为默认值
-       // this.parameterList = [];
+        // this.parameterList = [];
         this.formData.tableData = [];
       }
     },
@@ -458,12 +423,9 @@ export default {
       });
     },
     /** 读取模型信息*/
-    readInfo(){
-      const newPath =(this.form.modulePath);
-      //const newDeptId = this.form.deptId;
-      //console.log(newDeptId);
-      //console.log(this.form.deptName)
-      if(newPath) {
+    readInfo() {
+      const newPath = (this.form.modulePath);
+      if (newPath) {
         readModulesInfo({filePath: newPath}).then(response => {
           this.form.moduleName = response.moduleName;
           this.form.author = response.author;
@@ -472,7 +434,7 @@ export default {
           this.form.parameterList = response.parameterList;
           this.initParameterList();
         });
-      }else{
+      } else {
         this.$modal.msgError("请先上传文件");
       }
     },

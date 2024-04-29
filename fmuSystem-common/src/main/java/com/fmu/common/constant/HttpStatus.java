@@ -2,11 +2,10 @@ package com.fmu.common.constant;
 
 /**
  * 返回状态码
- * 
+ *
  * @author mm
  */
-public class HttpStatus
-{
+public class HttpStatus {
     /**
      * 操作成功
      */

@@ -2,12 +2,10 @@ package com.fmu.common.enums;
 
 /**
  * 操作状态
- * 
- * @author mm
  *
+ * @author mm
  */
-public enum BusinessStatus
-{
+public enum BusinessStatus {
     /**
      * 成功
      */

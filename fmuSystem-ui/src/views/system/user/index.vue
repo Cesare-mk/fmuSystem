@@ -13,19 +13,19 @@
             style="margin-bottom: 20px"
           />
         </div>
-<!--        <div class="head-container">
-&lt;!&ndash;          <el-tree
-            :data="deptOptions"
-            :props="defaultProps"
-            :expand-on-click-node="false"
-            :filter-node-method="filterNode"
-            ref="tree"
-            node-key="id"
-            default-expand-all
-            highlight-current
-            @node-click="handleNodeClick"
-          />&ndash;&gt;
-        </div>-->
+        <!--        <div class="head-container">
+        &lt;!&ndash;          <el-tree
+                    :data="deptOptions"
+                    :props="defaultProps"
+                    :expand-on-click-node="false"
+                    :filter-node-method="filterNode"
+                    ref="tree"
+                    node-key="id"
+                    default-expand-all
+                    highlight-current
+                    @node-click="handleNodeClick"
+                  />&ndash;&gt;
+                </div>-->
       </el-col>
       <!--用户数据-->
       <el-col :span="20" :xs="24">
@@ -641,7 +641,7 @@ export default {
       this.$router.push("/system/user-auth/role/" + userId);
     },
     /** 提交按钮 */
-     submitForm: function () {
+    submitForm: function () {
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.userId != undefined) {

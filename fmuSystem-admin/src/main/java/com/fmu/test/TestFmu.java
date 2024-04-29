@@ -2,6 +2,8 @@ package com.fmu.test;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
+import com.fmu.common.config.RuoYiConfig;
+import com.fmu.common.core.domain.R;
 import no.ntnu.ihb.fmi4j.Fmi4jVariableUtils;
 import no.ntnu.ihb.fmi4j.importer.fmi1.CoSimulationSlave;
 import no.ntnu.ihb.fmi4j.importer.fmi1.Fmu;
@@ -26,7 +28,11 @@ import java.util.List;
 
 public class TestFmu {
     public static void main(String[] args) throws IOException {
-        List<JSONObject> variableList = new ArrayList<>();
+        RuoYiConfig ruoYiConfig = new RuoYiConfig();
+        System.out.println(RuoYiConfig.getProfile());
+        System.out.println(ruoYiConfig.getName());
+        System.out.println(ruoYiConfig.getVersion());
+        /*List<JSONObject> variableList = new ArrayList<>();
         Fmu fmu = Fmu.from(new File("D:\\JetBrains-work\\Java\\BouncingBall.fmu")); //URLs are also supported
         CoSimulationSlave slave = fmu.asCoSimulationFmu().newInstance();
         CoSimulationModelDescription modelDescriptionDes = slave.getModelDescription();
@@ -45,7 +51,7 @@ public class TestFmu {
             variableObject.put("是否变量", variable.getVariability());
             variableObject.put("描述", variable.getDescription());
             variableList.add(variableObject);
-            /*System.out.print("变量名 " + variable.getName() + "   ");
+            *//*System.out.print("变量名 " + variable.getName() + "   ");
             System.out.print("初始值 ֵ" + variable.getStart() + "   ");
             //System.out.print("类型 " + variable.getDeclaredType() + "   ");
             System.out.print("因果关系 " + variable.getCausality() + "   ");
@@ -53,10 +59,10 @@ public class TestFmu {
             System.out.println("类型2： " + variable.getType());
             System.out.print("描述 " + variable.getDescription() + "   ");
             System.out.println("值参照：" + variable.getValueReference());
-            System.out.println("/n");*/
+            System.out.println("/n");*//*
         }
         String jsonString = JSON.toJSONString(variableList);
-        /*slave.simpleSetup();
+        *//*slave.simpleSetup();
 
         double t = 0;
         double stop = 10;
@@ -78,9 +84,9 @@ public class TestFmu {
             System.out.println("h: " + hValue + ";  " + "v: " + vValue);
             t += stepSize;
         }
-        slave.terminate(); //or close, try with resources is also supported*/
+        slave.terminate(); //or close, try with resources is also supported*//*
         fmu.close();
-        System.out.println(jsonString);
+        System.out.println(jsonString);*/
     }
 }
 

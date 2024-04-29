@@ -1,19 +1,22 @@
 <template>
   <div>
-    <el-dialog v-bind="$attrs" v-on="$listeners"  visible.sync="openUploadDialog" @open="onOpen" @close="onClose"
+    <el-dialog v-bind="$attrs" v-on="$listeners" visible.sync="openUploadDialog" @open="onOpen" @close="onClose"
                :before-close="handleClose" title="fmu">
       <el-form ref="elForm" :model="formData" :rules="rules" size="medium" label-width="100px"
-        label-position="left">
+               label-position="left">
         <el-form-item label="上传模型" prop="file" required>
           <el-upload ref="upload" :on-success="uploadSuccess" :on-error="uploadError" :file-list="upload.fileList"
-                     :limit="1" accept=".fmu,.zip,.jpg,.doc,.docx" :headers="upload.headers" :on-progress="handleFileUploadProgress"
-                     :auto-upload="false"  :action="upload.url" multiple
-            :before-upload="fileBeforeUpload">
-            <el-button  size="small" type="primary" icon="el-icon-upload">选取文件</el-button>
+                     :limit="1" accept=".fmu,.zip,.jpg,.doc,.docx" :headers="upload.headers"
+                     :on-progress="handleFileUploadProgress"
+                     :auto-upload="false" :action="upload.url" multiple
+                     :before-upload="fileBeforeUpload">
+            <el-button size="small" type="primary" icon="el-icon-upload">选取文件</el-button>
             <div slot="tip" class="el-upload__tip">只能上传fmu且不超过 5MB 的文件</div>
           </el-upload>
         </el-form-item>
-        <el-button style="margin-left: 100px;" size="small" type="success" :loading="upload.isUploading" @click="submitUpload">上传到服务器</el-button>
+        <el-button style="margin-left: 100px;" size="small" type="success" :loading="upload.isUploading"
+                   @click="submitUpload">上传到服务器
+        </el-button>
       </el-form>
       <div slot="footer">
         <el-button @click="close">取消</el-button>
@@ -23,7 +26,8 @@
   </div>
 </template>
 <script>
-import { getToken } from "@/utils/auth";
+import {getToken} from "@/utils/auth";
+
 export default {
   name: 'ModelUploadDialog',
   inheritAttrs: false,

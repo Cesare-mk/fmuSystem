@@ -1,5 +1,13 @@
 import request from '@/utils/request'
 
+export function drawModule(modulePath) {
+  return request({
+    url: '/modules/modulesInfo/draw',
+    method: 'post',
+    data: modulePath,
+  })
+}
+
 //读取模型信息
 export function readModulesInfo(path) {
   return request({

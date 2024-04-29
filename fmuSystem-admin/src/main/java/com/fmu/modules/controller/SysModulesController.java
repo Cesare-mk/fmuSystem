@@ -15,10 +15,13 @@ import com.alibaba.fastjson2.JSONObject;
 import com.fmu.common.config.RuoYiConfig;
 import com.fmu.common.constant.Constants;
 import com.fmu.common.utils.StringUtils;
+import com.fmu.modules.domain.ModuleResult;
 import com.fmu.modules.domain.SysSingleModule;
+import no.ntnu.ihb.fmi4j.Fmi4jVariableUtils;
 import no.ntnu.ihb.fmi4j.importer.fmi1.CoSimulationSlave;
 import no.ntnu.ihb.fmi4j.importer.fmi1.Fmu;
 import no.ntnu.ihb.fmi4j.modeldescription.CoSimulationModelDescription;
+import no.ntnu.ihb.fmi4j.modeldescription.variables.RealVariable;
 import no.ntnu.ihb.fmi4j.modeldescription.variables.TypedScalarVariable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,22 +37,22 @@ import com.fmu.common.core.page.TableDataInfo;
 
 /**
  * 模型信息Controller
- * 
+ *
  * @author mm
  * @date 2024-04-23
  */
 @RestController
 @RequestMapping("/modules/modulesInfo")
-public class SysModulesController extends BaseController
-{
+public class SysModulesController extends BaseController {
     @Autowired
     private ISysModulesService sysModulesService;
+
     /**
      * 上传模型信息返回
      */
     //@PreAuthorize("@ss.hasPermi('modules:modulesInfo:read')")
-    @PostMapping("/read" )
-    public SysSingleModule readInfo(@RequestBody Map<String,String> requestBody) throws IOException {
+    @PostMapping("/read")
+    public SysSingleModule readInfo(@RequestBody Map<String, String> requestBody) throws IOException {
         //String decodedPath = URLDecoder.decode(path, StandardCharsets.UTF_8);
         String filePath = requestBody.get("filePath");
         // 本地资源路径
@@ -85,20 +88,67 @@ public class SysModulesController extends BaseController
             variableList.add(variableObject);
         }
         fmu.close();
-        String jsonString = JSON.toJSONString(variableList,JSONWriter.Feature.WriteMapNullValue);
+        String jsonString = JSON.toJSONString(variableList, JSONWriter.Feature.WriteMapNullValue);
         sysSingleModule.setParameterList(jsonString);
         System.out.println(sysSingleModule.getParameterList());
         return sysSingleModule;
     }
+    /**
+     * 读取模型输出结果
+     * */
+    @PostMapping("/draw")
+    public ModuleResult drawModule(@RequestBody Map<String, String> requestBody) throws IOException {
 
+        String filePath = requestBody.get("modulePath");
+        String localPath = RuoYiConfig.getProfile();
+        String realPath = localPath + StringUtils.substringAfter(filePath, Constants.RESOURCE_PREFIX);
+        System.out.println(realPath);
+        ModuleResult moduleResult = new ModuleResult();
+        Fmu fmu = Fmu.from(new File(realPath));
+        CoSimulationSlave slave = fmu.asCoSimulationFmu().newInstance();
+
+        slave.simpleSetup();
+        double t = 0;
+        double stop = 10;
+        double stepSize = 1.0 / 100;
+        double[] tempH = new double[(int) (stop / stepSize) + 1]; // 存储h的值
+        double[] tempV = new double[(int) (stop / stepSize) + 1]; // 存储v的值
+        final RealVariable h = slave.getModelDescription()
+                .getVariableByName("h").asRealVariable();
+
+        final RealVariable v = slave.getModelDescription()
+                .getVariableByName("v").asRealVariable();
+
+        while (t <= stop) {
+            if (!slave.doStep(t, stepSize)) {
+                break;
+            }
+            double hValue = Fmi4jVariableUtils.read(h, slave).getValue();
+            double vValue = Fmi4jVariableUtils.read(v, slave).getValue();
+           // System.out.println("h: " + hValue + ";  " + "v: " + vValue);
+            // 存储hValue和vValue到对应的数组中
+            int index = (int) (t / stepSize);
+            tempH[index] = hValue;
+            tempV[index] = vValue;
+
+            t += stepSize;
+        }
+
+        // 将数组赋值给moduleResult
+        moduleResult.setH(tempH);
+        moduleResult.setV(tempV);
+
+        slave.terminate();
+        fmu.close();
+        return moduleResult;
+    }
 
     /**
      * 查询模型信息列表
      */
     @PreAuthorize("@ss.hasPermi('modules:modulesInfo:list')")
     @GetMapping("/list")
-    public TableDataInfo list(SysModules sysModules)
-    {
+    public TableDataInfo list(SysModules sysModules) {
         startPage();
         List<SysModules> list = sysModulesService.selectSysModulesList(sysModules);
         return getDataTable(list);
@@ -110,8 +160,7 @@ public class SysModulesController extends BaseController
     @PreAuthorize("@ss.hasPermi('modules:modulesInfo:export')")
     @Log(title = "模型信息", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, SysModules sysModules)
-    {
+    public void export(HttpServletResponse response, SysModules sysModules) {
         List<SysModules> list = sysModulesService.selectSysModulesList(sysModules);
         ExcelUtil<SysModules> util = new ExcelUtil<SysModules>(SysModules.class);
         util.exportExcel(response, list, "模型信息数据");
@@ -122,8 +171,7 @@ public class SysModulesController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('modules:modulesInfo:query')")
     @GetMapping(value = "/{moduleId}")
-    public AjaxResult getInfo(@PathVariable("moduleId") Long moduleId)
-    {
+    public AjaxResult getInfo(@PathVariable("moduleId") Long moduleId) {
         return success(sysModulesService.selectSysModulesByModuleId(moduleId));
     }
 
@@ -133,12 +181,11 @@ public class SysModulesController extends BaseController
     @PreAuthorize("@ss.hasPermi('modules:modulesInfo:add')")
     @Log(title = "模型信息", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody SysModules sysModules)
-    {
-        if(!StringUtils.isBlank(sysModules.getDescription())){
+    public AjaxResult add(@RequestBody SysModules sysModules) {
+        if (!StringUtils.isBlank(sysModules.getDescription())) {
             sysModules.setDescription(sysModules.getDescription().replaceAll("<[/]?p>", ""));
         }
-        if(!StringUtils.isBlank(sysModules.getParameterList())){
+        if (!StringUtils.isBlank(sysModules.getParameterList())) {
             sysModules.setParameterList(sysModules.getParameterList().replaceAll("<[/]?p>", ""));
         }
         System.out.println(sysModules.toString());
@@ -151,12 +198,11 @@ public class SysModulesController extends BaseController
     @PreAuthorize("@ss.hasPermi('modules:modulesInfo:edit')")
     @Log(title = "模型信息", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody SysModules sysModules)
-    {
-        if(!StringUtils.isBlank(sysModules.getDescription())){
+    public AjaxResult edit(@RequestBody SysModules sysModules) {
+        if (!StringUtils.isBlank(sysModules.getDescription())) {
             sysModules.setDescription(sysModules.getDescription().replaceAll("<[/]?p>", ""));
         }
-        if(!StringUtils.isBlank(sysModules.getParameterList())){
+        if (!StringUtils.isBlank(sysModules.getParameterList())) {
             sysModules.setParameterList(sysModules.getParameterList().replaceAll("<[/]?p>", ""));
         }
         // System.out.println(sysModules.toString());
@@ -169,9 +215,8 @@ public class SysModulesController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('modules:modulesInfo:remove')")
     @Log(title = "模型信息", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{moduleIds}")
-    public AjaxResult remove(@PathVariable Long[] moduleIds)
-    {
+    @DeleteMapping("/{moduleIds}")
+    public AjaxResult remove(@PathVariable Long[] moduleIds) {
         return toAjax(sysModulesService.deleteSysModulesByModuleIds(moduleIds));
     }
 }

@@ -6,23 +6,35 @@ package com.fmu.modules.domain;
  * @date 2024/4/24 15:39
  */
 public class SysSingleModule {
-     /** 模型名称 */
+    /**
+     * 模型名称
+     */
     private String moduleName;
 
-    /** FMU 版本 */
+    /**
+     * FMU 版本
+     */
     private String fmuVersion;
 
-    /** 作者 */
+    /**
+     * 作者
+     */
     private String author;
 
-    /** 模型版本号 */
+    /**
+     * 模型版本号
+     */
     private String versionNumber;
 
-    /** 描述 */
+    /**
+     * 描述
+     */
 
     private String description;
 
-    /** 参数列表 */
+    /**
+     * 参数列表
+     */
 
     private String parameterList;
 

@@ -9,7 +9,7 @@
     <version>3.8.7</version>
 
     <name>fmu</name>
-   <!-- <url>http://www.ruoyi.vip</url>-->
+    <!-- <url>http://www.ruoyi.vip</url>-->
     <description>液压仿真模型库系统</description>
 
     <properties>
