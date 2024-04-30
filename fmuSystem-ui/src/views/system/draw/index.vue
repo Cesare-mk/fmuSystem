@@ -122,7 +122,7 @@
     />
 
     <!-- 模型信息参数对话框 -->
-    <el-dialog :title="title" :visible.sync="isOpen" width="1000px" @open="open()" append-to-body>
+    <el-dialog :title="title" :visible.sync="isOpen" width="1000px"  append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="参数列表(可修改)">
           <template>
@@ -167,8 +167,8 @@
           </template>
         </el-form-item>
       </el-form>
-      <div  class="bordered-div" style="height: 70px; width: 970px;" ></div>
-      <div ref="charts" class="bordered-div" style="width: 970px; height: 300px"></div>
+      <div style="height: 20px; width: 970px;" ></div>
+      <div ref="charts" class="bordered-div" style="width: 970px; height: 450px"></div>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确定参数</el-button>
         <el-button type="primary" @click="draw">模型可视化</el-button>
@@ -195,29 +195,43 @@ export default {
   components: {},
   data() {
     return {
+      myCharts: null,
       //画图属性
       option:{
         title: {
           text: "h和v的变化",
-          left: 'center',
+          left: '1%',
           top: 0
         },
         grid: [
-          { left: '7%', top: '7%', width: '38%', height: '38%' },
-          { right: '7%', top: '7%', width: '38%', height: '38%' },
-          { left: '7%', bottom: '7%', width: '38%', height: '38%' },
-          { right: '7%', bottom: '7%', width: '38%', height: '38%' }
+          {
+            bottom: '53%', // 这个 grid 区域会占据上半部分
+            left: '7%',
+            right: '7%',
+            height: '35%' // 可以调整高度比例
+          },
+          // 第二个 grid，用于放置第二个图
+          {
+            top: '60%', // 这个 grid 区域会占据下半部分
+            left: '7%',
+            right: '7%',
+            height: '35%' // 可以调整高度比例
+          }
         ],
         tooltip: {
           formatter: '{a}: ({c})'
         },
+        legend: {},
         xAxis: [
-          { gridIndex: 0, min: 0, max: 20 },
-          { gridIndex: 1, min: 0, max: 20 }
+          { gridIndex: 0,  },
+          { gridIndex: 1, },
+          {
+            type: "value",
+          }
         ],
         yAxis: [
-          { gridIndex: 0, min: 0, max: 15 },
-          { gridIndex: 1, min: 0, max: 15 }
+          { gridIndex: 0, min: 0, max: 1, type: "value",name:"h/m"},
+          { gridIndex: 1, min: -4.5, max: 3.5 ,type: "value",name:"m/s"},
         ],
         series: [
           {
@@ -225,7 +239,9 @@ export default {
             type: 'line',
             xAxisIndex: 0,
             yAxisIndex: 0,
-            data: [1,2,5,7,10]
+            symbolSize: 2,
+            data: [],
+            smooth: true,
           },
 
           {
@@ -233,7 +249,9 @@ export default {
             type: 'line',
             xAxisIndex: 1,
             yAxisIndex: 1,
-            data: [1,2,3,6,9,12]
+            symbolSize: 2,
+            data: [],
+            smooth: true,
           }
         ]
       },
@@ -309,28 +327,64 @@ export default {
     this.getList();
   },
   mounted() {
+    //this.initChart();
   },
   methods: {
-    //绘制模型结果
-    MgCharts() {
-      let myCharts = this.$echarts.init(this.$refs.charts);
-      myCharts.setOption(this.option, true);
+    //dom初始化
+    initChart() {
+      // 使用 this.$echarts.init 方法初始化图表实例，并赋值给 myChart
+      this.myCharts = this.$echarts.init(this.$refs.charts);
+      // 初始图表配置
+      this.myCharts.setOption(this.option, true);
       window.addEventListener('resize', () => {
-        myCharts.resize();
+        this.myCharts.resize();
       })
     },
-    open() {
-      this.$nextTick(() => {
-        this.MgCharts();
-      })
-    },
+
+    /** 更新图像*/
+    /*updateChart() {
+      if (this.h.length && this.v.length) {
+        // 更新图表的 series 数据
+        this.option.series[0].data = this.h;
+        this.option.series[1].data = this.v;
+        this.myCharts = this.$echarts.init(this.$refs.charts);
+        myCharts.setOption(this.option, true);
+        window.addEventListener('resize', () => {
+          myCharts.resize();
+        })
+      }
+    },*/
+    /** 调用方法画图*/
     draw() {
       const modulePath = (this.form.modulePath);
       if (modulePath) {
         drawModule({modulePath: modulePath}).then(response => {
           this.h = response.h;
           this.v = response.v;
+          // 检查图表是否已初始化，如果没有，则初始化它
+          if (!this.myCharts) {
+            this.initChart();
+          }
+          // 开始动态加载数据
+          this.addDataPoint(0);
+          //this.updateChart();
         })
+      }
+    },
+    /** *动态加载数据*/
+    addDataPoint(index) {
+      if (index < this.h.length) {
+        // 添加数据点到对应的 series
+        this.option.series[0].data.push(this.h[index]);
+        this.option.series[1].data.push(this.v[index]);
+        // 使用 this.myChart 实例来更新图表
+        this.myCharts.setOption({
+          series: this.option.series
+        });
+        // 使用 setTimeout 延迟添加下一个数据点
+        setTimeout(() => {
+          this.addDataPoint(index + 1);
+        }, 1000); // 延迟 100 毫秒（0.1秒）添加下一个数据点
       }
     },
     initParameterList() {
